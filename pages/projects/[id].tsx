@@ -29,15 +29,14 @@ const ProjectPage = () => {
         return number.toLocaleString();
     };
 
-    const handleImageChange = (event : any) => {
-        const file = event.target.files[0];
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0]; // Optional chaining is safer
         if (file) {
             const reader = new FileReader();
-            reader.onload = (e) => {
-                if(e.target?.result){
+            reader.onload = (e: ProgressEvent<FileReader>) => {
+                if (e.target?.result) {
                     setSelectedImage(e.target.result as string);
                 }
-               
             };
             reader.readAsDataURL(file);
         }
